@@ -13,8 +13,13 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
+  //
+  server: {
+    host: '0.0.0.0',
+    port: 3000,
+  },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/request.js', '~/plugins/dayjs.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -54,7 +59,6 @@ export default {
     // 清除 Nuxt 的自定义路由规则, 自定义路由规则
     extendRoutes(routes, resolve) {
       routes.splice(0)
-
       routes.push(
         ...[
           {
