@@ -47,4 +47,53 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  // router
+  router: {
+    linkActiveClass: 'active',
+    // 清除 Nuxt 的自定义路由规则, 自定义路由规则
+    extendRoutes(routes, resolve) {
+      routes.splice(0)
+
+      routes.push(
+        ...[
+          {
+            path: '',
+            component: resolve(__dirname, 'pages/home'),
+            name: 'Home',
+          },
+          {
+            path: '/login',
+            component: resolve(__dirname, 'pages/login'),
+            name: 'Login',
+          },
+          {
+            path: '/register',
+            component: resolve(__dirname, 'pages/login'),
+            name: 'Register',
+          },
+          {
+            path: '/profile/:username',
+            component: resolve(__dirname, 'pages/profile'),
+            name: 'Profile',
+          },
+          {
+            path: '/settings',
+            component: resolve(__dirname, 'pages/settings'),
+            name: 'Settings',
+          },
+          {
+            path: '/editor',
+            component: resolve(__dirname, 'pages/edit'),
+            name: 'Editor',
+          },
+          {
+            path: '/article/:slug',
+            component: resolve(__dirname, 'pages/article'),
+            name: 'Article',
+          },
+        ]
+      )
+    },
+  },
 }
