@@ -41,8 +41,25 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    proxy: true,
+  },
 
+  proxy: {
+    '/api/': 'https://conduit.productionready.io',
+  },
+
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.BROWSER_BASE_URL,
+    },
+  },
+
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.BASE_URL,
+    },
+  },
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
@@ -95,6 +112,11 @@ export default {
             path: '/article/:slug',
             component: resolve(__dirname, 'pages/article'),
             name: 'Article',
+          },
+          {
+            path: '*',
+            component: resolve(__dirname, 'pages/notfound'),
+            name: 'NotFound',
           },
         ]
       )

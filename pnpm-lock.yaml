@@ -11,12 +11,16 @@ specifiers:
   '@nuxtjs/pwa': ^3.3.5
   '@nuxtjs/stylelint-module': ^4.0.0
   '@vue/test-utils': ^1.1.3
+  axios: ^0.21.1
+  axios-retry: ^3.1.9
   babel-core: ^6.26.3
   babel-eslint: ^10.1.0
   babel-jest: ^26.6.3
   consola: ^2.15.3
+  cookieparser: ^0.1.0
   core-js: ^3.9.1
   dayjs: ^1.10.5
+  defu: ^5.0.0
   eslint: ^7.22.0
   eslint-config-prettier: ^8.1.0
   eslint-plugin-nuxt: ^2.0.0
@@ -24,39 +28,56 @@ specifiers:
   eslint-plugin-vue: ^7.7.0
   husky: ^4.3.8
   jest: ^26.6.3
+  js-cookie: ^2.2.1
   lint-staged: ^10.5.4
+  node-fetch: ^2.6.1
   nuxt: ^2.15.3
   prettier: ^2.2.1
   stylelint: ^13.12.0
   stylelint-config-prettier: ^8.0.2
   stylelint-config-standard: ^21.0.0
   typescript: ^4.3.4
+  ufo: ^0.7.5
   vue: ^2.6.14
+  vue-client-only: ^2.1.0
   vue-jest: ^3.0.7
+  vue-meta: ^2.4.0
+  vue-no-ssr: ^1.1.1
+  vue-router: ^3.5.2
   vue-template-compiler: ^2.6.14
-  webpack: ^5.40.0
+  vuex: ^3.6.2
+  webpack: 4.46.0
 
 dependencies:
   '@babel/eslint-parser': 7.14.7_@babel+core@7.14.6+eslint@7.29.0
   '@nuxtjs/axios': 5.13.6
   '@nuxtjs/pwa': 3.3.5
+  axios: 0.21.1
+  axios-retry: 3.1.9
+  cookieparser: 0.1.0
   core-js: 3.15.1
   dayjs: 1.10.5
+  js-cookie: 2.2.1
+  node-fetch: 2.6.1
   nuxt: 2.15.7_consola@2.15.3+typescript@4.3.4
   vue: 2.6.14
+  vue-router: 3.5.2
+  vuex: 3.6.2_vue@2.6.14
+  webpack: 4.46.0
 
 devDependencies:
   '@babel/core': 7.14.6
   '@commitlint/cli': 12.1.4
   '@commitlint/config-conventional': 12.1.4
   '@nuxtjs/eslint-config': 6.0.1_eslint@7.29.0+typescript@4.3.4
-  '@nuxtjs/eslint-module': 3.0.2_eslint@7.29.0+webpack@5.40.0
-  '@nuxtjs/stylelint-module': 4.0.0_stylelint@13.13.1+webpack@5.40.0
+  '@nuxtjs/eslint-module': 3.0.2_eslint@7.29.0+webpack@4.46.0
+  '@nuxtjs/stylelint-module': 4.0.0_stylelint@13.13.1+webpack@4.46.0
   '@vue/test-utils': 1.2.1_9065e7474e033a8e4b95615fc8e6c36c
   babel-core: 6.26.3
   babel-eslint: 10.1.0_eslint@7.29.0
   babel-jest: 26.6.3_@babel+core@7.14.6
   consola: 2.15.3
+  defu: 5.0.0
   eslint: 7.29.0
   eslint-config-prettier: 8.3.0_eslint@7.29.0
   eslint-plugin-nuxt: 2.0.0_eslint@7.29.0
@@ -70,9 +91,12 @@ devDependencies:
   stylelint-config-prettier: 8.0.2_stylelint@13.13.1
   stylelint-config-standard: 21.0.0_stylelint@13.13.1
   typescript: 4.3.4
+  ufo: 0.7.5
+  vue-client-only: 2.1.0
   vue-jest: 3.0.7_985c07343bcb6bc9147a270029aff880
+  vue-meta: 2.4.0
+  vue-no-ssr: 1.1.1
   vue-template-compiler: 2.6.14
-  webpack: 5.40.0
 
 packages:
 
@@ -1969,8 +1993,6 @@ packages:
       axios-retry: 3.1.9
       consola: 2.15.3
       defu: 5.0.0
-    transitivePeerDependencies:
-      - debug
     dev: false
 
   /@nuxtjs/eslint-config/6.0.1_eslint@7.29.0+typescript@4.3.4:
@@ -1993,14 +2015,14 @@ packages:
       - typescript
     dev: true
 
-  /@nuxtjs/eslint-module/3.0.2_eslint@7.29.0+webpack@5.40.0:
+  /@nuxtjs/eslint-module/3.0.2_eslint@7.29.0+webpack@4.46.0:
     resolution: {integrity: sha1-RSCObhtIa+ttCFR3f68SR1GXG8Y=, tarball: https://r.cnpmjs.org/@nuxtjs/eslint-module/download/@nuxtjs/eslint-module-3.0.2.tgz}
     peerDependencies:
       eslint: '>=7'
     dependencies:
       consola: 2.15.3
       eslint: 7.29.0
-      eslint-webpack-plugin: 2.5.4_eslint@7.29.0+webpack@5.40.0
+      eslint-webpack-plugin: 2.5.4_eslint@7.29.0+webpack@4.46.0
     transitivePeerDependencies:
       - webpack
     dev: true
@@ -2009,8 +2031,6 @@ packages:
     resolution: {integrity: sha1-+ncVoR0jf6EnNQPE6eE33Rv1V1s=, tarball: https://r.cnpmjs.org/@nuxtjs/proxy/download/@nuxtjs/proxy-2.1.0.tgz}
     dependencies:
       http-proxy-middleware: 1.3.1
-    transitivePeerDependencies:
-      - debug
     dev: false
 
   /@nuxtjs/pwa/3.3.5:
@@ -2027,14 +2047,14 @@ packages:
       workbox-cdn: 5.1.4
     dev: false
 
-  /@nuxtjs/stylelint-module/4.0.0_stylelint@13.13.1+webpack@5.40.0:
+  /@nuxtjs/stylelint-module/4.0.0_stylelint@13.13.1+webpack@4.46.0:
     resolution: {integrity: sha1-kmRluswzFxl5BocTScIWNh8YtPo=, tarball: https://r.cnpmjs.org/@nuxtjs/stylelint-module/download/@nuxtjs/stylelint-module-4.0.0.tgz}
     peerDependencies:
       stylelint: ^13.0.0
     dependencies:
       consola: 2.15.3
       stylelint: 13.13.1
-      stylelint-webpack-plugin: 2.2.1_stylelint@13.13.1+webpack@5.40.0
+      stylelint-webpack-plugin: 2.2.1_stylelint@13.13.1+webpack@4.46.0
     transitivePeerDependencies:
       - webpack
     dev: true
@@ -2124,22 +2144,11 @@ packages:
       '@babel/types': 7.14.5
     dev: true
 
-  /@types/eslint-scope/3.7.0:
-    resolution: {integrity: sha1-R5KBbjERnr1QaQKkgsrsSVH6vYY=, tarball: https://r.cnpmjs.org/@types/eslint-scope/download/@types/eslint-scope-3.7.0.tgz}
-    dependencies:
-      '@types/eslint': 7.2.13
-      '@types/estree': 0.0.47
-    dev: true
-
   /@types/eslint/7.2.13:
     resolution: {integrity: sha1-4MpyGbpd7UAgYq1vkm1JHrsp3VM=, tarball: https://r.cnpmjs.org/@types/eslint/download/@types/eslint-7.2.13.tgz}
     dependencies:
       '@types/estree': 0.0.48
       '@types/json-schema': 7.0.7
-    dev: true
-
-  /@types/estree/0.0.47:
-    resolution: {integrity: sha1-16Udsg8GUO/sJM0EmU9SPZMXLtQ=, tarball: https://r.cnpmjs.org/@types/estree/download/@types/estree-0.0.47.tgz}
     dev: true
 
   /@types/estree/0.0.48:
@@ -2463,13 +2472,6 @@ packages:
       vue-template-compiler: 2.6.14
     dev: true
 
-  /@webassemblyjs/ast/1.11.0:
-    resolution: {integrity: sha1-papnnv3J5RcHpCBxOdpXkgVVlh8=, tarball: https://r.cnpmjs.org/@webassemblyjs/ast/download/@webassemblyjs/ast-1.11.0.tgz}
-    dependencies:
-      '@webassemblyjs/helper-numbers': 1.11.0
-      '@webassemblyjs/helper-wasm-bytecode': 1.11.0
-    dev: true
-
   /@webassemblyjs/ast/1.9.0:
     resolution: {integrity: sha1-vYUGBLQEJFmlpBzX0zjL7Wle2WQ=, tarball: https://r.cnpmjs.org/@webassemblyjs/ast/download/@webassemblyjs/ast-1.9.0.tgz}
     dependencies:
@@ -2478,25 +2480,13 @@ packages:
       '@webassemblyjs/wast-parser': 1.9.0
     dev: false
 
-  /@webassemblyjs/floating-point-hex-parser/1.11.0:
-    resolution: {integrity: sha1-NNYgUvRTzUMQHXLqtJZqAiWHlHw=, tarball: https://r.cnpmjs.org/@webassemblyjs/floating-point-hex-parser/download/@webassemblyjs/floating-point-hex-parser-1.11.0.tgz}
-    dev: true
-
   /@webassemblyjs/floating-point-hex-parser/1.9.0:
     resolution: {integrity: sha1-PD07Jxvd/ITesA9xNEQ4MR1S/7Q=, tarball: https://r.cnpmjs.org/@webassemblyjs/floating-point-hex-parser/download/@webassemblyjs/floating-point-hex-parser-1.9.0.tgz}
     dev: false
 
-  /@webassemblyjs/helper-api-error/1.11.0:
-    resolution: {integrity: sha1-quqPs7kj9KqptRL/VBsBP/to0tQ=, tarball: https://r.cnpmjs.org/@webassemblyjs/helper-api-error/download/@webassemblyjs/helper-api-error-1.11.0.tgz}
-    dev: true
-
   /@webassemblyjs/helper-api-error/1.9.0:
     resolution: {integrity: sha1-ID9nbjM7lsnaLuqzzO8zxFkotqI=, tarball: https://r.cnpmjs.org/@webassemblyjs/helper-api-error/download/@webassemblyjs/helper-api-error-1.9.0.tgz}
     dev: false
-
-  /@webassemblyjs/helper-buffer/1.11.0:
-    resolution: {integrity: sha1-0CbCXRdeOIp9valpTpHnQ8vptkI=, tarball: https://r.cnpmjs.org/@webassemblyjs/helper-buffer/download/@webassemblyjs/helper-buffer-1.11.0.tgz}
-    dev: true
 
   /@webassemblyjs/helper-buffer/1.9.0:
     resolution: {integrity: sha1-oUQtJpxf6yP8vJ73WdrDVH8p3gA=, tarball: https://r.cnpmjs.org/@webassemblyjs/helper-buffer/download/@webassemblyjs/helper-buffer-1.9.0.tgz}
@@ -2518,30 +2508,9 @@ packages:
       '@webassemblyjs/ast': 1.9.0
     dev: false
 
-  /@webassemblyjs/helper-numbers/1.11.0:
-    resolution: {integrity: sha1-erBBctVOMSzG6kKG19n6J8iM1Pk=, tarball: https://r.cnpmjs.org/@webassemblyjs/helper-numbers/download/@webassemblyjs/helper-numbers-1.11.0.tgz}
-    dependencies:
-      '@webassemblyjs/floating-point-hex-parser': 1.11.0
-      '@webassemblyjs/helper-api-error': 1.11.0
-      '@xtuc/long': 4.2.2
-    dev: true
-
-  /@webassemblyjs/helper-wasm-bytecode/1.11.0:
-    resolution: {integrity: sha1-hf3NpBKZAv6G+Bq/fnI2lT7FpOE=, tarball: https://r.cnpmjs.org/@webassemblyjs/helper-wasm-bytecode/download/@webassemblyjs/helper-wasm-bytecode-1.11.0.tgz}
-    dev: true
-
   /@webassemblyjs/helper-wasm-bytecode/1.9.0:
     resolution: {integrity: sha1-T+2L6sm4wU+MWLcNEk1UndH+V5A=, tarball: https://r.cnpmjs.org/@webassemblyjs/helper-wasm-bytecode/download/@webassemblyjs/helper-wasm-bytecode-1.9.0.tgz}
     dev: false
-
-  /@webassemblyjs/helper-wasm-section/1.11.0:
-    resolution: {integrity: sha1-nOLMiTACYlCcgBtK8RPRyiXBp1s=, tarball: https://r.cnpmjs.org/@webassemblyjs/helper-wasm-section/download/@webassemblyjs/helper-wasm-section-1.11.0.tgz}
-    dependencies:
-      '@webassemblyjs/ast': 1.11.0
-      '@webassemblyjs/helper-buffer': 1.11.0
-      '@webassemblyjs/helper-wasm-bytecode': 1.11.0
-      '@webassemblyjs/wasm-gen': 1.11.0
-    dev: true
 
   /@webassemblyjs/helper-wasm-section/1.9.0:
     resolution: {integrity: sha1-WkE41aYpK6GLBMWuSXF+QWeWU0Y=, tarball: https://r.cnpmjs.org/@webassemblyjs/helper-wasm-section/download/@webassemblyjs/helper-wasm-section-1.9.0.tgz}
@@ -2552,23 +2521,11 @@ packages:
       '@webassemblyjs/wasm-gen': 1.9.0
     dev: false
 
-  /@webassemblyjs/ieee754/1.11.0:
-    resolution: {integrity: sha1-RpddWD+YKPXQlKwhDiGUQcTm9c8=, tarball: https://r.cnpmjs.org/@webassemblyjs/ieee754/download/@webassemblyjs/ieee754-1.11.0.tgz}
-    dependencies:
-      '@xtuc/ieee754': 1.2.0
-    dev: true
-
   /@webassemblyjs/ieee754/1.9.0:
     resolution: {integrity: sha1-Fceg+6roP7JhQ7us9tbfFwKtOeQ=, tarball: https://r.cnpmjs.org/@webassemblyjs/ieee754/download/@webassemblyjs/ieee754-1.9.0.tgz}
     dependencies:
       '@xtuc/ieee754': 1.2.0
     dev: false
-
-  /@webassemblyjs/leb128/1.11.0:
-    resolution: {integrity: sha1-9zU94d84qiAcup+4i0P0H3X/QDs=, tarball: https://r.cnpmjs.org/@webassemblyjs/leb128/download/@webassemblyjs/leb128-1.11.0.tgz}
-    dependencies:
-      '@xtuc/long': 4.2.2
-    dev: true
 
   /@webassemblyjs/leb128/1.9.0:
     resolution: {integrity: sha1-8Zygt2ptxVYjoJz/p2noOPoeHJU=, tarball: https://r.cnpmjs.org/@webassemblyjs/leb128/download/@webassemblyjs/leb128-1.9.0.tgz}
@@ -2576,26 +2533,9 @@ packages:
       '@xtuc/long': 4.2.2
     dev: false
 
-  /@webassemblyjs/utf8/1.11.0:
-    resolution: {integrity: sha1-huSPlZz0ng5QkfBppwm4YvWiyt8=, tarball: https://r.cnpmjs.org/@webassemblyjs/utf8/download/@webassemblyjs/utf8-1.11.0.tgz}
-    dev: true
-
   /@webassemblyjs/utf8/1.9.0:
     resolution: {integrity: sha1-BNM7Y2945qaBMifoJAL3Y3tiKas=, tarball: https://r.cnpmjs.org/@webassemblyjs/utf8/download/@webassemblyjs/utf8-1.9.0.tgz}
     dev: false
-
-  /@webassemblyjs/wasm-edit/1.11.0:
-    resolution: {integrity: sha1-7kpcn2dwRqIQVCrmOJcJTCAny3g=, tarball: https://r.cnpmjs.org/@webassemblyjs/wasm-edit/download/@webassemblyjs/wasm-edit-1.11.0.tgz}
-    dependencies:
-      '@webassemblyjs/ast': 1.11.0
-      '@webassemblyjs/helper-buffer': 1.11.0
-      '@webassemblyjs/helper-wasm-bytecode': 1.11.0
-      '@webassemblyjs/helper-wasm-section': 1.11.0
-      '@webassemblyjs/wasm-gen': 1.11.0
-      '@webassemblyjs/wasm-opt': 1.11.0
-      '@webassemblyjs/wasm-parser': 1.11.0
-      '@webassemblyjs/wast-printer': 1.11.0
-    dev: true
 
   /@webassemblyjs/wasm-edit/1.9.0:
     resolution: {integrity: sha1-P+bXnT8PkiGDqoYALELdJWz+6c8=, tarball: https://r.cnpmjs.org/@webassemblyjs/wasm-edit/download/@webassemblyjs/wasm-edit-1.9.0.tgz}
@@ -2610,16 +2550,6 @@ packages:
       '@webassemblyjs/wast-printer': 1.9.0
     dev: false
 
-  /@webassemblyjs/wasm-gen/1.11.0:
-    resolution: {integrity: sha1-PNs15wCC1Co1FmmI3aZPJM65er4=, tarball: https://r.cnpmjs.org/@webassemblyjs/wasm-gen/download/@webassemblyjs/wasm-gen-1.11.0.tgz}
-    dependencies:
-      '@webassemblyjs/ast': 1.11.0
-      '@webassemblyjs/helper-wasm-bytecode': 1.11.0
-      '@webassemblyjs/ieee754': 1.11.0
-      '@webassemblyjs/leb128': 1.11.0
-      '@webassemblyjs/utf8': 1.11.0
-    dev: true
-
   /@webassemblyjs/wasm-gen/1.9.0:
     resolution: {integrity: sha1-ULxw7Gje2OJ2OwGhQYv0NJGnpJw=, tarball: https://r.cnpmjs.org/@webassemblyjs/wasm-gen/download/@webassemblyjs/wasm-gen-1.9.0.tgz}
     dependencies:
@@ -2630,15 +2560,6 @@ packages:
       '@webassemblyjs/utf8': 1.9.0
     dev: false
 
-  /@webassemblyjs/wasm-opt/1.11.0:
-    resolution: {integrity: sha1-FjiuGIE39LsDH1aKQTzSTTL5KXg=, tarball: https://r.cnpmjs.org/@webassemblyjs/wasm-opt/download/@webassemblyjs/wasm-opt-1.11.0.tgz}
-    dependencies:
-      '@webassemblyjs/ast': 1.11.0
-      '@webassemblyjs/helper-buffer': 1.11.0
-      '@webassemblyjs/wasm-gen': 1.11.0
-      '@webassemblyjs/wasm-parser': 1.11.0
-    dev: true
-
   /@webassemblyjs/wasm-opt/1.9.0:
     resolution: {integrity: sha1-IhEYHlsxMmRDzIES658LkChyGmE=, tarball: https://r.cnpmjs.org/@webassemblyjs/wasm-opt/download/@webassemblyjs/wasm-opt-1.9.0.tgz}
     dependencies:
@@ -2647,17 +2568,6 @@ packages:
       '@webassemblyjs/wasm-gen': 1.9.0
       '@webassemblyjs/wasm-parser': 1.9.0
     dev: false
-
-  /@webassemblyjs/wasm-parser/1.11.0:
-    resolution: {integrity: sha1-PmgLiDDVsT0eyGzELzjz1KdwB1Q=, tarball: https://r.cnpmjs.org/@webassemblyjs/wasm-parser/download/@webassemblyjs/wasm-parser-1.11.0.tgz}
-    dependencies:
-      '@webassemblyjs/ast': 1.11.0
-      '@webassemblyjs/helper-api-error': 1.11.0
-      '@webassemblyjs/helper-wasm-bytecode': 1.11.0
-      '@webassemblyjs/ieee754': 1.11.0
-      '@webassemblyjs/leb128': 1.11.0
-      '@webassemblyjs/utf8': 1.11.0
-    dev: true
 
   /@webassemblyjs/wasm-parser/1.9.0:
     resolution: {integrity: sha1-nUjkSCbfSmWYKUqmyHRp1kL/9l4=, tarball: https://r.cnpmjs.org/@webassemblyjs/wasm-parser/download/@webassemblyjs/wasm-parser-1.9.0.tgz}
@@ -2681,13 +2591,6 @@ packages:
       '@xtuc/long': 4.2.2
     dev: false
 
-  /@webassemblyjs/wast-printer/1.11.0:
-    resolution: {integrity: sha1-aA0falNl1tQBl0qOlJ4FR04fq34=, tarball: https://r.cnpmjs.org/@webassemblyjs/wast-printer/download/@webassemblyjs/wast-printer-1.11.0.tgz}
-    dependencies:
-      '@webassemblyjs/ast': 1.11.0
-      '@xtuc/long': 4.2.2
-    dev: true
-
   /@webassemblyjs/wast-printer/1.9.0:
     resolution: {integrity: sha1-STXVTIX+9jewDOn1I3dFHQDUeJk=, tarball: https://r.cnpmjs.org/@webassemblyjs/wast-printer/download/@webassemblyjs/wast-printer-1.9.0.tgz}
     dependencies:
@@ -2698,9 +2601,11 @@ packages:
 
   /@xtuc/ieee754/1.2.0:
     resolution: {integrity: sha1-7vAUoxRa5Hehy8AM0eVSM23Ot5A=, tarball: https://r.cnpmjs.org/@xtuc/ieee754/download/@xtuc/ieee754-1.2.0.tgz}
+    dev: false
 
   /@xtuc/long/4.2.2:
     resolution: {integrity: sha1-0pHGpOl5ibXGHZrPOWrk/hM6cY0=, tarball: https://r.cnpmjs.org/@xtuc/long/download/@xtuc/long-4.2.2.tgz}
+    dev: false
 
   /JSONStream/1.3.5:
     resolution: {integrity: sha1-MgjB8I06TZkmGrZPkjArwV4RHKA=, tarball: https://r.cnpmjs.org/JSONStream/download/JSONStream-1.3.5.tgz}
@@ -3022,8 +2927,6 @@ packages:
     resolution: {integrity: sha1-IlY0gZYvTWvemnbVFu8OXTwJsrg=, tarball: https://r.cnpmjs.org/axios/download/axios-0.21.1.tgz}
     dependencies:
       follow-redirects: 1.14.1
-    transitivePeerDependencies:
-      - debug
     dev: false
 
   /babel-code-frame/6.26.0:
@@ -3769,6 +3672,7 @@ packages:
   /chrome-trace-event/1.0.3:
     resolution: {integrity: sha1-EBXs7UdB4V0GZkqVfbv1DQQeJqw=, tarball: https://r.cnpmjs.org/chrome-trace-event/download/chrome-trace-event-1.0.3.tgz}
     engines: {node: '>=6.0'}
+    dev: false
 
   /ci-info/2.0.0:
     resolution: {integrity: sha1-Z6npZL4xpR4V5QENWObxKDQAL0Y=, tarball: https://r.cnpmjs.org/ci-info/download/ci-info-2.0.0.tgz}
@@ -4089,6 +3993,10 @@ packages:
   /cookie/0.3.1:
     resolution: {integrity: sha1-5+Ch+e9DtMi6klxcWpboBtFoc7s=, tarball: https://r.cnpmjs.org/cookie/download/cookie-0.3.1.tgz}
     engines: {node: '>= 0.6'}
+    dev: false
+
+  /cookieparser/0.1.0:
+    resolution: {integrity: sha1-6hLLEIXBdPMWf66veYX3mr5nHQ4=, tarball: https://r.cnpmjs.org/cookieparser/download/cookieparser-0.1.0.tgz}
     dev: false
 
   /copy-concurrently/1.0.5:
@@ -4574,7 +4482,6 @@ packages:
 
   /defu/5.0.0:
     resolution: {integrity: sha1-V2jw1AKlVb/EwmckayD4LOi1oQs=, tarball: https://r.cnpmjs.org/defu/download/defu-5.0.0.tgz}
-    dev: false
 
   /delayed-stream/1.0.0:
     resolution: {integrity: sha1-3zrhmayt+31ECqrgsp4icrJOxhk=, tarball: https://r.cnpmjs.org/delayed-stream/download/delayed-stream-1.0.0.tgz}
@@ -4820,14 +4727,6 @@ packages:
       tapable: 1.1.3
     dev: false
 
-  /enhanced-resolve/5.8.2:
-    resolution: {integrity: sha1-Fd3HeTRcu3PpfGEc0AwBwee/TYs=, tarball: https://r.cnpmjs.org/enhanced-resolve/download/enhanced-resolve-5.8.2.tgz}
-    engines: {node: '>=10.13.0'}
-    dependencies:
-      graceful-fs: 4.2.6
-      tapable: 2.2.0
-    dev: true
-
   /enquirer/2.3.6:
     resolution: {integrity: sha1-Kn/l3WNKHkElqXXsmU/1RW3Dc00=, tarball: https://r.cnpmjs.org/enquirer/download/enquirer-2.3.6.tgz}
     engines: {node: '>=8.6'}
@@ -4880,10 +4779,6 @@ packages:
       string.prototype.trimend: 1.0.4
       string.prototype.trimstart: 1.0.4
       unbox-primitive: 1.0.1
-
-  /es-module-lexer/0.6.0:
-    resolution: {integrity: sha1-5yqwW3QS5iub43w3oJvbYADXBvA=, tarball: https://r.cnpmjs.org/es-module-lexer/download/es-module-lexer-0.6.0.tgz}
-    dev: true
 
   /es-to-primitive/1.2.1:
     resolution: {integrity: sha1-5VzUyc3BiLzvsDs2bHNjI/xciYo=, tarball: https://r.cnpmjs.org/es-to-primitive/download/es-to-primitive-1.2.1.tgz}
@@ -5173,7 +5068,7 @@ packages:
     resolution: {integrity: sha1-9lMoJZMFknOSyTjtROsKXJsr0wM=, tarball: https://r.cnpmjs.org/eslint-visitor-keys/download/eslint-visitor-keys-2.1.0.tgz}
     engines: {node: '>=10'}
 
-  /eslint-webpack-plugin/2.5.4_eslint@7.29.0+webpack@5.40.0:
+  /eslint-webpack-plugin/2.5.4_eslint@7.29.0+webpack@4.46.0:
     resolution: {integrity: sha1-RzuEky8ajiwrjmakAtBJe/RAuYY=, tarball: https://r.cnpmjs.org/eslint-webpack-plugin/download/eslint-webpack-plugin-2.5.4.tgz}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -5187,7 +5082,7 @@ packages:
       micromatch: 4.0.4
       normalize-path: 3.0.0
       schema-utils: 3.0.0
-      webpack: 5.40.0
+      webpack: 4.46.0
     dev: true
 
   /eslint/7.29.0:
@@ -5298,6 +5193,7 @@ packages:
   /events/3.3.0:
     resolution: {integrity: sha1-Mala0Kkk4tLEGagTrrLE6HjqdAA=, tarball: https://r.cnpmjs.org/events/download/events-3.3.0.tgz}
     engines: {node: '>=0.8.x'}
+    dev: false
 
   /eventsource-polyfill/0.9.6:
     resolution: {integrity: sha1-EODRh/ERsWfyj9q5GIQ859gY8Tw=, tarball: https://r.cnpmjs.org/eventsource-polyfill/download/eventsource-polyfill-0.9.6.tgz}
@@ -5649,11 +5545,6 @@ packages:
   /follow-redirects/1.14.1:
     resolution: {integrity: sha1-2RFN7Qoc/dM04WTmZirQK/2R/0M=, tarball: https://r.cnpmjs.org/follow-redirects/download/follow-redirects-1.14.1.tgz}
     engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
     dev: false
 
   /for-in/1.0.2:
@@ -5735,7 +5626,6 @@ packages:
   /fsevents/1.2.13:
     resolution: {integrity: sha1-8yXLBFVZJCi88Rs4M3DvcOO/zDg=, tarball: https://r.cnpmjs.org/fsevents/download/fsevents-1.2.13.tgz}
     engines: {node: '>= 4.0'}
-    os: [darwin]
     deprecated: fsevents 1 will break on node v14+ and could be using insecure binaries. Upgrade to fsevents 2.
     requiresBuild: true
     dependencies:
@@ -5859,10 +5749,6 @@ packages:
     engines: {node: '>= 6'}
     dependencies:
       is-glob: 4.0.1
-
-  /glob-to-regexp/0.4.1:
-    resolution: {integrity: sha1-x1KXCHyFG5pXi9IX3VmpL1n+VG4=, tarball: https://r.cnpmjs.org/glob-to-regexp/download/glob-to-regexp-0.4.1.tgz}
-    dev: true
 
   /glob/7.1.7:
     resolution: {integrity: sha1-Oxk+kjPwHULQs/eClLvutBj5SpA=, tarball: https://r.cnpmjs.org/glob/download/glob-7.1.7.tgz}
@@ -6233,8 +6119,6 @@ packages:
       is-glob: 4.0.1
       is-plain-obj: 3.0.0
       micromatch: 4.0.4
-    transitivePeerDependencies:
-      - debug
     dev: false
 
   /http-proxy/1.18.1:
@@ -6244,8 +6128,6 @@ packages:
       eventemitter3: 4.0.7
       follow-redirects: 1.14.1
       requires-port: 1.0.0
-    transitivePeerDependencies:
-      - debug
     dev: false
 
   /https-browserify/1.0.0:
@@ -7282,6 +7164,10 @@ packages:
       nopt: 5.0.0
     dev: true
 
+  /js-cookie/2.2.1:
+    resolution: {integrity: sha1-aeEG3F1YBolFYpAqpbrsN0Tpsrg=, tarball: https://r.cnpmjs.org/js-cookie/download/js-cookie-2.2.1.tgz}
+    dev: false
+
   /js-tokens/3.0.2:
     resolution: {integrity: sha1-mGbfOVECEw449/mWvOtlRDIJwls=, tarball: https://r.cnpmjs.org/js-tokens/download/js-tokens-3.0.2.tgz}
     dev: true
@@ -7538,6 +7424,7 @@ packages:
   /loader-runner/4.2.0:
     resolution: {integrity: sha1-1wIjgNZtFMX7HUlriYZOvP1Hg4Q=, tarball: https://r.cnpmjs.org/loader-runner/download/loader-runner-4.2.0.tgz}
     engines: {node: '>=6.11.5'}
+    dev: false
 
   /loader-utils/1.4.0:
     resolution: {integrity: sha1-xXm140yzSxp07cbB+za/o3HVphM=, tarball: https://r.cnpmjs.org/loader-utils/download/loader-utils-1.4.0.tgz}
@@ -8121,6 +8008,7 @@ packages:
 
   /neo-async/2.6.2:
     resolution: {integrity: sha1-tKr7k+OustgXTKU88WOrfXMIMF8=, tarball: https://r.cnpmjs.org/neo-async/download/neo-async-2.6.2.tgz}
+    dev: false
 
   /nice-try/1.0.5:
     resolution: {integrity: sha1-ozeKdpbOfSI+iPybdkvX7xCJ42Y=, tarball: https://r.cnpmjs.org/nice-try/download/nice-try-1.0.5.tgz}
@@ -9743,6 +9631,7 @@ packages:
     resolution: {integrity: sha1-32+ENy8CcNxlzfYpE0mrekc9Tyo=, tarball: https://r.cnpmjs.org/randombytes/download/randombytes-2.1.0.tgz}
     dependencies:
       safe-buffer: 5.2.1
+    dev: false
 
   /randomfill/1.0.4:
     resolution: {integrity: sha1-ySGW/IarQr6YPxvzF3giSTHWFFg=, tarball: https://r.cnpmjs.org/randomfill/download/randomfill-1.0.4.tgz}
@@ -10254,6 +10143,7 @@ packages:
     resolution: {integrity: sha1-eIbshIBJpGJGepfT2Rjrsqr5NPQ=, tarball: https://r.cnpmjs.org/serialize-javascript/download/serialize-javascript-5.0.1.tgz}
     dependencies:
       randombytes: 2.1.0
+    dev: false
 
   /serve-placeholder/1.2.3:
     resolution: {integrity: sha1-0ud4xv7f5ubKSK/wtGJ7vixKoso=, tarball: https://r.cnpmjs.org/serve-placeholder/download/serve-placeholder-1.2.3.tgz}
@@ -10446,6 +10336,7 @@ packages:
 
   /source-list-map/2.0.1:
     resolution: {integrity: sha1-OZO9hzv8SEecyp6jpUeDXHwVSzQ=, tarball: https://r.cnpmjs.org/source-list-map/download/source-list-map-2.0.1.tgz}
+    dev: false
 
   /source-map-resolve/0.5.3:
     resolution: {integrity: sha1-GQhmvs51U+H48mei7oLGBrVQmho=, tarball: https://r.cnpmjs.org/source-map-resolve/download/source-map-resolve-0.5.3.tgz}
@@ -10807,7 +10698,7 @@ packages:
       stylelint-config-recommended: 4.0.0_stylelint@13.13.1
     dev: true
 
-  /stylelint-webpack-plugin/2.2.1_stylelint@13.13.1+webpack@5.40.0:
+  /stylelint-webpack-plugin/2.2.1_stylelint@13.13.1+webpack@4.46.0:
     resolution: {integrity: sha1-ecxqehhiLHXtiqwIxT8SbYEVEvE=, tarball: https://r.cnpmjs.org/stylelint-webpack-plugin/download/stylelint-webpack-plugin-2.2.1.tgz}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -10822,7 +10713,7 @@ packages:
       normalize-path: 3.0.0
       schema-utils: 3.0.0
       stylelint: 13.13.1
-      webpack: 5.40.0
+      webpack: 4.46.0
     dev: true
 
   /stylelint/13.13.1:
@@ -10969,11 +10860,6 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /tapable/2.2.0:
-    resolution: {integrity: sha1-XDc9KB2cZyhIIT0OA30cQWWrQms=, tarball: https://r.cnpmjs.org/tapable/download/tapable-2.2.0.tgz}
-    engines: {node: '>=6'}
-    dev: true
-
   /tar/6.1.0:
     resolution: {integrity: sha1-0XJOm8wEuXexjVxXOzM6IgcimoM=, tarball: https://r.cnpmjs.org/tar/download/tar-6.1.0.tgz}
     engines: {node: '>= 10'}
@@ -11030,21 +10916,6 @@ packages:
       webpack-sources: 1.4.3
     dev: false
 
-  /terser-webpack-plugin/5.1.3_webpack@5.40.0:
-    resolution: {integrity: sha1-MAM+lVyii1VmTx5LMKE0fmGqI68=, tarball: https://r.cnpmjs.org/terser-webpack-plugin/download/terser-webpack-plugin-5.1.3.tgz}
-    engines: {node: '>= 10.13.0'}
-    peerDependencies:
-      webpack: ^5.1.0
-    dependencies:
-      jest-worker: 27.0.2
-      p-limit: 3.1.0
-      schema-utils: 3.0.0
-      serialize-javascript: 5.0.1
-      source-map: 0.6.1
-      terser: 5.7.0
-      webpack: 5.40.0
-    dev: true
-
   /terser/4.8.0:
     resolution: {integrity: sha1-YwVjQ9fHC7KfOvZlhlpG/gOg3xc=, tarball: https://r.cnpmjs.org/terser/download/terser-4.8.0.tgz}
     engines: {node: '>=6.0.0'}
@@ -11063,6 +10934,7 @@ packages:
       commander: 2.20.3
       source-map: 0.7.3
       source-map-support: 0.5.19
+    dev: false
 
   /test-exclude/6.0.0:
     resolution: {integrity: sha1-BKhphmHYBepvopO2y55jrARO8V4=, tarball: https://r.cnpmjs.org/test-exclude/download/test-exclude-6.0.0.tgz}
@@ -11345,7 +11217,6 @@ packages:
 
   /ufo/0.7.5:
     resolution: {integrity: sha1-XVshdHR8AHLt0wUBmUyKxK0ud+o=, tarball: https://r.cnpmjs.org/ufo/download/ufo-0.7.5.tgz}
-    dev: false
 
   /uglify-js/3.13.9:
     resolution: {integrity: sha1-TY0h3NSX8pz9jpN4ud8SOtAlmZs=, tarball: https://r.cnpmjs.org/uglify-js/download/uglify-js-3.13.9.tgz}
@@ -11617,7 +11488,6 @@ packages:
 
   /vue-client-only/2.1.0:
     resolution: {integrity: sha1-Gmeke47Kz6htdYMBc//+47+KTuM=, tarball: https://r.cnpmjs.org/vue-client-only/download/vue-client-only-2.1.0.tgz}
-    dev: false
 
   /vue-eslint-parser/7.6.0_eslint@7.29.0:
     resolution: {integrity: sha1-AeoaKTL1gf8kQzZWXXEoAfj3JWE=, tarball: https://r.cnpmjs.org/vue-eslint-parser/download/vue-eslint-parser-7.6.0.tgz}
@@ -11691,11 +11561,9 @@ packages:
     resolution: {integrity: sha1-pBn7S0E1zpZdqzLsZB0ZicLuSEU=, tarball: https://r.cnpmjs.org/vue-meta/download/vue-meta-2.4.0.tgz}
     dependencies:
       deepmerge: 4.2.2
-    dev: false
 
   /vue-no-ssr/1.1.1:
     resolution: {integrity: sha1-h1875vsK5BVoqDfzrBqA6qE3uZg=, tarball: https://r.cnpmjs.org/vue-no-ssr/download/vue-no-ssr-1.1.1.tgz}
-    dev: false
 
   /vue-router/3.5.2:
     resolution: {integrity: sha1-X1Xj8lGXDjbD6NiKfNLWejUK3lw=, tarball: https://r.cnpmjs.org/vue-router/download/vue-router-3.5.2.tgz}
@@ -11778,14 +11646,6 @@ packages:
       watchpack-chokidar2: 2.0.1
     dev: false
 
-  /watchpack/2.2.0:
-    resolution: {integrity: sha1-R9ePVBX+VQ7NdA+Z/iiCMjpYsc4=, tarball: https://r.cnpmjs.org/watchpack/download/watchpack-2.2.0.tgz}
-    engines: {node: '>=10.13.0'}
-    dependencies:
-      glob-to-regexp: 0.4.1
-      graceful-fs: 4.2.6
-    dev: true
-
   /webidl-conversions/5.0.0:
     resolution: {integrity: sha1-rlnIoAsSFUOirMZcBDT1ew/BGv8=, tarball: https://r.cnpmjs.org/webidl-conversions/download/webidl-conversions-5.0.0.tgz}
     engines: {node: '>=8'}
@@ -11851,14 +11711,6 @@ packages:
       source-map: 0.6.1
     dev: false
 
-  /webpack-sources/2.3.0:
-    resolution: {integrity: sha1-ntLeabJRQ6TBiEdYatnsyxknjPo=, tarball: https://r.cnpmjs.org/webpack-sources/download/webpack-sources-2.3.0.tgz}
-    engines: {node: '>=10.13.0'}
-    dependencies:
-      source-list-map: 2.0.1
-      source-map: 0.6.1
-    dev: true
-
   /webpack/4.46.0:
     resolution: {integrity: sha1-v5tEBOogoHNgXgoBHRiNd8tq1UI=, tarball: https://r.cnpmjs.org/webpack/download/webpack-4.46.0.tgz}
     engines: {node: '>=6.11.5'}
@@ -11896,41 +11748,6 @@ packages:
       watchpack: 1.7.5
       webpack-sources: 1.4.3
     dev: false
-
-  /webpack/5.40.0:
-    resolution: {integrity: sha1-MYLP0yR1nXFSUs9UGQGiJuV7UGE=, tarball: https://r.cnpmjs.org/webpack/download/webpack-5.40.0.tgz}
-    engines: {node: '>=10.13.0'}
-    hasBin: true
-    peerDependencies:
-      webpack-cli: '*'
-    peerDependenciesMeta:
-      webpack-cli:
-        optional: true
-    dependencies:
-      '@types/eslint-scope': 3.7.0
-      '@types/estree': 0.0.47
-      '@webassemblyjs/ast': 1.11.0
-      '@webassemblyjs/wasm-edit': 1.11.0
-      '@webassemblyjs/wasm-parser': 1.11.0
-      acorn: 8.4.0
-      browserslist: 4.16.6
-      chrome-trace-event: 1.0.3
-      enhanced-resolve: 5.8.2
-      es-module-lexer: 0.6.0
-      eslint-scope: 5.1.1
-      events: 3.3.0
-      glob-to-regexp: 0.4.1
-      graceful-fs: 4.2.6
-      json-parse-better-errors: 1.0.2
-      loader-runner: 4.2.0
-      mime-types: 2.1.31
-      neo-async: 2.6.2
-      schema-utils: 3.0.0
-      tapable: 2.2.0
-      terser-webpack-plugin: 5.1.3_webpack@5.40.0
-      watchpack: 2.2.0
-      webpack-sources: 2.3.0
-    dev: true
 
   /webpackbar/4.0.0_webpack@4.46.0:
     resolution: {integrity: sha1-7nqH8WB3UFtXIFUa9BPI7NWx94A=, tarball: https://r.cnpmjs.org/webpackbar/download/webpackbar-4.0.0.tgz}

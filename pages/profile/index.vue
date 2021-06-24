@@ -4,15 +4,19 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-md-10 offset-md-1">
-            <img src="http://i.imgur.com/Qr71crq.jpg" class="user-img" />
-            <h4>Eric Simons</h4>
-            <p>
-              Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda
-              looks like Peeta from the Hunger Games
-            </p>
-            <button class="btn btn-sm btn-outline-secondary action-btn">
+            <img :src="profile.image" class="user-img" />
+            <h4>{{ profile.username }}</h4>
+            <p>{{ profile.bio }}</p>
+            <button
+              v-if="current.username === profile.username"
+              class="btn btn-sm btn-outline-secondary action-btn"
+            >
+              <i class="ion-gear-a"></i>
+              &nbsp; Edit Profile Settings
+            </button>
+            <button v-else class="btn btn-sm btn-outline-secondary action-btn">
               <i class="ion-plus-round"></i>
-              &nbsp; Follow Eric Simons
+              &nbsp; Follow {{ profile.username }}
             </button>
           </div>
         </div>
@@ -25,10 +29,32 @@
           <div class="articles-toggle">
             <ul class="nav nav-pills outline-active">
               <li class="nav-item">
-                <a class="nav-link active" href="">My Articles</a>
+                <nuxt-link
+                  class="nav-link"
+                  exact
+                  :class="{ active: tab === 'my_article' }"
+                  :to="{
+                    name: 'Profile',
+                    query: { tab: 'my_article' },
+                  }"
+                >
+                  My Articles
+                </nuxt-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="">Favorited Articles</a>
+                <nuxt-link
+                  class="nav-link"
+                  exact
+                  :class="{ active: tab === 'favorited_article' }"
+                  :to="{
+                    name: 'Profile',
+                    query: {
+                      tab: 'favorited_article',
+                    },
+                  }"
+                >
+                  Favorited Articles
+                </nuxt-link>
               </li>
             </ul>
           </div>
@@ -82,5 +108,31 @@
 </template>
 
 <script>
-export default {}
+import { mapState } from 'vuex'
+export default {
+  name: 'ProfileIndex',
+  middleware: 'authenticated',
+  async asyncData({ params, $axios }) {
+    let { username, tab } = params
+    username = username.replace('@', '')
+    const { profile } = await $axios.$get(`/api/profiles/${username}`)
+    const limit = 5
+    const offset = 0
+    tab = tab ?? 'my_article'
+    const { articles: myArticle } = await $axios.$get('/api/articles', {
+      params: {
+        author: username,
+        limit,
+        offset,
+      },
+    })
+
+    return { profile, limit, offset, myArticle, tab }
+  },
+
+  computed: {
+    ...mapState({ current: 'user' }),
+  },
+  watchQuery: ['tab'],
+}
 </script>
