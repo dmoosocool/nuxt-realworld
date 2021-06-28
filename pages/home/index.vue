@@ -27,7 +27,7 @@
                   class="nav-link"
                   exact
                   :class="{ active: tab === 'global_feed' }"
-                  :to="{ name: 'Home' }"
+                  :to="{ name: 'Home', query: { tab: 'global_feed' } }"
                 >
                   Global Feed
                 </nuxt-link>
@@ -46,58 +46,85 @@
             </ul>
           </div>
 
-          <div
-            v-for="article in articles"
-            :key="article.slug"
-            class="article-preview"
-          >
-            <div class="article-meta">
-              <nuxt-link
-                :to="{
-                  name: 'Profile',
-                  params: { username: '@' + article.author.username },
-                }"
-              >
-                <img :src="article.author.image" />
-              </nuxt-link>
-              <div class="info">
+          <template v-if="articles.length > 0">
+            <div
+              v-for="article in articles"
+              :key="article.slug"
+              class="article-preview"
+            >
+              <div class="article-meta">
                 <nuxt-link
-                  class="author"
                   :to="{
                     name: 'Profile',
                     params: { username: '@' + article.author.username },
                   }"
                 >
-                  {{ article.author.username }}
+                  <img :src="article.author.image" />
                 </nuxt-link>
-                <span class="date">{{ article.createdAt | date }}</span>
-              </div>
-              <button
-                class="btn btn-outline-primary btn-sm pull-xs-right"
-                :class="{ active: article.favorited }"
-              >
-                <i class="ion-heart"></i> {{ article.favoritesCount }}
-              </button>
-            </div>
-            <nuxt-link
-              class="preview-link"
-              :to="{ name: 'Article', params: { slug: article.slug } }"
-            >
-              <h1>{{ article.title }}</h1>
-              <p>{{ article.description }}</p>
-              <span>Read more...</span>
-
-              <ul class="tag-list">
-                <li
-                  v-for="aTag in article.tagList"
-                  :key="aTag"
-                  class="tag-default tag-pill tag-outline"
+                <div class="info">
+                  <nuxt-link
+                    class="author"
+                    :to="{
+                      name: 'Profile',
+                      params: { username: '@' + article.author.username },
+                    }"
+                  >
+                    {{ article.author.username }}
+                  </nuxt-link>
+                  <span class="date">{{ article.createdAt | date }}</span>
+                </div>
+                <button
+                  class="btn btn-outline-primary btn-sm pull-xs-right"
+                  :class="{ active: article.favorited }"
                 >
-                  {{ aTag }}
-                </li>
-              </ul>
-            </nuxt-link>
-          </div>
+                  <i class="ion-heart"></i> {{ article.favoritesCount }}
+                </button>
+              </div>
+              <nuxt-link
+                class="preview-link"
+                :to="{ name: 'Article', params: { slug: article.slug } }"
+              >
+                <h1>{{ article.title }}</h1>
+                <p>{{ article.description }}</p>
+                <span>Read more...</span>
+
+                <ul class="tag-list">
+                  <li
+                    v-for="aTag in filterEmptyTag(article.tagList)"
+                    :key="aTag"
+                    class="tag-default tag-pill tag-outline"
+                  >
+                    {{ aTag }}
+                  </li>
+                </ul>
+              </nuxt-link>
+            </div>
+          </template>
+
+          <template v-else>
+            <div class="article-preview">No articles are here... yet.</div>
+          </template>
+
+          <nav v-if="totalPage > 1">
+            <ul class="pagination">
+              <li
+                v-for="item in totalPage"
+                :key="`page_count_${item}`"
+                :class="{ active: item === page }"
+                class="page-item"
+              >
+                <nuxt-link
+                  class="page-link"
+                  :to="{
+                    name: 'Home',
+                    query: { page: item, tab: tab, tag: $route.query.tag },
+                  }"
+                >
+                  {{ item }}
+                </nuxt-link>
+              </li>
+            </ul>
+          </nav>
         </div>
 
         <div class="col-md-3">
@@ -105,7 +132,7 @@
             <p>Popular Tags</p>
             <div v-if="tags.length > 0" class="tag-list">
               <nuxt-link
-                v-for="tag in tags"
+                v-for="tag in filterEmptyTag(tags)"
                 :key="tag"
                 :to="{
                   name: 'Home',
@@ -135,18 +162,18 @@ export default {
   // 仅在需要ssr的页面中使用, 不需要ssr时, 应该使用常规的发请求的方法.
   async asyncData({ query, $axios }) {
     // 当前页码, 如果为空默认第1页
-    const page = Number.parseInt(query.page || 1)
+    const page = +query.page || 1
     // 每页显示的个数
     const limit = 20
     // 当前的tab
     const tab = query.tab || 'global_feed'
+
     // 是否需要过滤标签
     const tag = query.tag
 
     const getArticles = (params) => $axios.$get('/api/articles', { params })
     const getYourFeedArticles = (params) =>
       $axios.$get('/api/articles/feed', { params })
-
     const getTags = () => $axios.$get('/api/tags')
 
     // 当前tab要么是 'global_feed' 要么是 'your_feed'
@@ -160,23 +187,47 @@ export default {
     ])
 
     const { articles, articlesCount } = ArticlesRes
-    let { tags } = TagsRes
+    const { tags } = TagsRes
 
-    tags = tags.filter((item) => {
-      if (item.length === 0) return false
-      // 过滤掉无效字符
-      // https://asecuritysite.com/coding/asc2
-      if (item.charCodeAt() > 7424) return false
-      return true
-    })
-    return { articles, articlesCount, tags, limit, page, tab, tag }
+    return {
+      articles,
+      articlesCount,
+      tags,
+      limit,
+      page,
+      tab,
+      tag,
+    }
   },
 
   computed: {
     ...mapState(['user']),
+    totalPage() {
+      return Math.ceil(this.articlesCount / this.limit)
+    },
   },
 
   // 监听当前页面属性发生变化
   watchQuery: ['page', 'tag', 'tab'],
+
+  methods: {
+    filterEmptyTag(tagList) {
+      tagList = [...new Set(tagList)]
+      return tagList.filter((tag) => {
+        if (tag.length === 0) return false
+        // 过滤掉无效字符, 因为asc码最大7424 超出的将会解析为空字符, 所以需要过滤掉这些无用的数据
+        // https://asecuritysite.com/coding/asc2
+        if (tag.charCodeAt() > 7424) return false
+        return true
+      })
+    },
+  },
 }
 </script>
+
+<style scoped>
+.article-preview {
+  overflow: hidden;
+  width: 100%;
+}
+</style>
