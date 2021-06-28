@@ -1,19 +1,29 @@
 <template>
   <div>
-    <form class="card comment-form" @submit.prevent="onSubmit">
-      <div class="card-block">
-        <textarea
-          v-model="commentContent"
-          class="form-control"
-          placeholder="Write a comment..."
-          rows="3"
-        ></textarea>
-      </div>
-      <div class="card-footer">
-        <img :src="current.image" class="comment-author-img" />
-        <button class="btn btn-sm btn-primary">Post Comment</button>
-      </div>
-    </form>
+    <template v-if="current && current.username">
+      <form class="card comment-form" @submit.prevent="onSubmit">
+        <div class="card-block">
+          <textarea
+            v-model="commentContent"
+            class="form-control"
+            placeholder="Write a comment..."
+            rows="3"
+          ></textarea>
+        </div>
+        <div class="card-footer">
+          <img :src="current.image" class="comment-author-img" />
+          <button class="btn btn-sm btn-primary">Post Comment</button>
+        </div>
+      </form>
+    </template>
+
+    <template v-else>
+      <p style="display: inherit">
+        <nuxt-link :to="{ name: 'Login' }">Sign in</nuxt-link> or
+        <nuxt-link :to="{ name: 'Register' }">sign up</nuxt-link> to add
+        comments on this article.
+      </p>
+    </template>
 
     <div v-for="comment in comments" :key="comment.id" class="card">
       <div class="card-block">
@@ -47,7 +57,11 @@
           {{ comment.createdAt | date('MMM DD, YYYY') }}
         </span>
         <span
-          v-if="current.username === comment.author.username"
+          v-if="
+            current &&
+            current.username &&
+            current.username === comment.author.username
+          "
           class="mod-options"
           @click="handlerDeleteComment(comment.id)"
         >

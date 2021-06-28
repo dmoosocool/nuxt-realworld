@@ -7,16 +7,29 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: 'http://cdn.jsdelivr.net/npm/ionicons@2.0.1/css/ionicons.min.css',
+      },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: 'http://fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic',
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ['~/static/css/style.css'],
 
+  cssSourceMap: true,
   //
   server: {
     host: '0.0.0.0',
-    port: 3000,
+    port: 3001,
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['~/plugins/request.js', '~/plugins/dayjs.js', '~/plugins/tag.js'],
@@ -68,7 +81,26 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    extractCSS: true,
+
+    postcss: {
+      // Add plugin names as key and arguments as value
+      // Install them before as dependencies with npm or yarn
+      plugins: {
+        // Disable a plugin by passing false as value
+        'postcss-import': {},
+        'postcss-url': {},
+        'postcss-preset-env': {},
+      },
+      preset: {
+        // Change the postcss-preset-env settings
+        autoprefixer: {
+          grid: true,
+        },
+      },
+    },
+  },
 
   // router
   router: {

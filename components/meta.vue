@@ -1,18 +1,7 @@
 <template>
   <div class="article-meta">
-    <nuxt-link
-      :to="{
-        name: 'Profile',
-        params: {
-          username: `@${currentArticle.author.username}`,
-        },
-      }"
-    >
-      <img :src="currentArticle.author.image" />
-    </nuxt-link>
-    <div class="info">
+    <template v-if="currentArticle">
       <nuxt-link
-        class="author"
         :to="{
           name: 'Profile',
           params: {
@@ -20,36 +9,49 @@
           },
         }"
       >
-        {{ currentArticle.author.username }}
+        <img :src="currentArticle.author.image" />
       </nuxt-link>
-      <span class="date">
-        {{ currentArticle.createdAt | date('MMM DD, YYYY') }}
-      </span>
-    </div>
+      <div class="info">
+        <nuxt-link
+          class="author"
+          :to="{
+            name: 'Profile',
+            params: {
+              username: `@${currentArticle.author.username}`,
+            },
+          }"
+        >
+          {{ currentArticle.author.username }}
+        </nuxt-link>
+        <span class="date">
+          {{ currentArticle.createdAt | date('MMM DD, YYYY') }}
+        </span>
+      </div>
 
-    <button
-      class="btn btn-sm btn-outline-secondary"
-      :class="{
-        active: currentArticle.author.following,
-      }"
-      @click="handlerFollow(article.author.following)"
-    >
-      <i class="ion-plus-round"></i>
-      &nbsp; {{ currentArticle.author.following ? 'Unfollow' : 'Follow' }}
-      {{ currentArticle.author.username }}
-    </button>
-    &nbsp;&nbsp;
-    <button
-      class="btn btn-sm btn-outline-primary"
-      :class="{
-        active: currentArticle.favorited,
-      }"
-      @click="handlerFavorite(currentArticle.favorited)"
-    >
-      <i class="ion-heart"></i>
-      &nbsp; Favorite Post
-      <span class="counter">({{ currentArticle.favoritesCount }})</span>
-    </button>
+      <button
+        class="btn btn-sm btn-outline-secondary"
+        :class="{
+          active: currentArticle.author.following,
+        }"
+        @click="handlerFollow(article.author.following)"
+      >
+        <i class="ion-plus-round"></i>
+        &nbsp; {{ currentArticle.author.following ? 'Unfollow' : 'Follow' }}
+        {{ currentArticle.author.username }}
+      </button>
+      &nbsp;&nbsp;
+      <button
+        class="btn btn-sm btn-outline-primary"
+        :class="{
+          active: currentArticle.favorited,
+        }"
+        @click="handlerFavorite(currentArticle.favorited)"
+      >
+        <i class="ion-heart"></i>
+        &nbsp; Favorite Post
+        <span class="counter">({{ currentArticle.favoritesCount }})</span>
+      </button>
+    </template>
   </div>
 </template>
 

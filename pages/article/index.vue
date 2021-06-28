@@ -47,7 +47,7 @@
     <div class="container page">
       <div class="row article-content">
         <div class="col-md-12">
-          <p v-html="article.body"></p>
+          <div class="markdown" v-html="article.body"></div>
 
           <ul class="tag-list">
             <li
@@ -77,8 +77,10 @@
 </template>
 
 <script>
+import Markdown from 'markdown-it'
 import Comments from '~/components/comments.vue'
 import Meta from '~/components/meta.vue'
+
 export default {
   name: 'ArticleIndex',
   components: {
@@ -88,7 +90,8 @@ export default {
   async asyncData({ $axios, params }) {
     const { slug } = params
     const { article } = await $axios.$get(`/api/articles/${slug}`)
-    console.log(article)
+    const md = new Markdown()
+    article.body = md.render(article.body)
     return { article }
   },
 

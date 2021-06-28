@@ -8,7 +8,7 @@
             <h4>{{ profile.username }}</h4>
             <p>{{ profile.bio }}</p>
             <button
-              v-if="current.username === profile.username"
+              v-if="current && current.username === profile.username"
               class="btn btn-sm btn-outline-secondary action-btn"
               @click="$router.push({ name: 'Settings' })"
             >
@@ -180,6 +180,7 @@ export default {
           params: ArticleParams,
         }),
       ])
+
     return { profile, limit, offset, myArticle, articlesCount, tab, page }
   },
 
