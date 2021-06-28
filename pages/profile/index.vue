@@ -111,7 +111,6 @@
 import { mapState } from 'vuex'
 export default {
   name: 'ProfileIndex',
-  middleware: 'authenticated',
   async asyncData({ params, $axios }) {
     let { username, tab } = params
     username = username.replace('@', '')
