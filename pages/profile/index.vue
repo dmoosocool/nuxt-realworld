@@ -111,6 +111,16 @@
                 <h1>{{ article.title }}</h1>
                 <p>{{ article.description }}</p>
                 <span>Read more...</span>
+
+                <ul v-if="article.tagList.length > 0" class="tag-list">
+                  <li
+                    v-for="aTag in article.tagList"
+                    :key="`profile-article-tag-${aTag}`"
+                    class="tag-default tag-pill tag-outline"
+                  >
+                    {{ aTag }}
+                  </li>
+                </ul>
               </nuxt-link>
             </div>
           </template>

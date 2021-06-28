@@ -32,14 +32,10 @@
     "cookieparser": "^0.1.0",
     "dayjs": "^1.8.28",
     "defu": "^5.0.0",
-    "eslint": "^7.29.0",
     "js-cookie": "^2.2.1",
     "markdown-it": "^11.0.0",
     "node-fetch": "^2.6.1",
     "nuxt": "^2.12.2",
-    "stylelint": "^13.13.1",
-    "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-standard": "^22.0.0",
     "ufo": "^0.7.5",
     "vue": "^2.6.14",
     "vue-client-only": "^2.1.0",
@@ -48,5 +44,21 @@
     "vue-router": "^3.5.2",
     "vuex": "^3.6.2",
     "webpack": "^5.40.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-config": "^6.0.1",
+    "babel-eslint": "^10.1.0",
+    "commitlint": "^12.1.4",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-vue": "^7.12.1",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.3.2",
+    "stylelint": "^13.13.1",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-standard": "^22.0.0"
   }
 }

@@ -136,6 +136,11 @@ export default {
             name: 'Settings',
           },
           {
+            path: '/editor/:slug',
+            component: resolve(__dirname, 'pages/edit'),
+            name: 'EditorArticle',
+          },
+          {
             path: '/editor',
             component: resolve(__dirname, 'pages/edit'),
             name: 'Editor',

@@ -27,35 +27,61 @@
           {{ currentArticle.createdAt | date('MMM DD, YYYY') }}
         </span>
       </div>
+      <template
+        v-if="
+          current &&
+          current.username &&
+          current.username === article.author.username
+        "
+      >
+        <span>
+          <nuxt-link
+            class="btn btn-outline-secondary btn-sm"
+            :to="{ name: 'EditorArticle', params: { slug: article.slug } }"
+          >
+            <i class="ion-edit"></i> Edit Article
+          </nuxt-link>
 
-      <button
-        class="btn btn-sm btn-outline-secondary"
-        :class="{
-          active: currentArticle.author.following,
-        }"
-        @click="handlerFollow(article.author.following)"
-      >
-        <i class="ion-plus-round"></i>
-        &nbsp; {{ currentArticle.author.following ? 'Unfollow' : 'Follow' }}
-        {{ currentArticle.author.username }}
-      </button>
-      &nbsp;&nbsp;
-      <button
-        class="btn btn-sm btn-outline-primary"
-        :class="{
-          active: currentArticle.favorited,
-        }"
-        @click="handlerFavorite(currentArticle.favorited)"
-      >
-        <i class="ion-heart"></i>
-        &nbsp; Favorite Post
-        <span class="counter">({{ currentArticle.favoritesCount }})</span>
-      </button>
+          <button
+            class="btn btn-outline-danger btn-sm"
+            @click="handlerDeleteArticle()"
+          >
+            <i class="ion-trash-a"></i> Delete Article
+          </button>
+        </span>
+      </template>
+
+      <template v-else>
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          :class="{
+            active: currentArticle.author.following,
+          }"
+          @click="handlerFollow(article.author.following)"
+        >
+          <i class="ion-plus-round"></i>
+          &nbsp; {{ currentArticle.author.following ? 'Unfollow' : 'Follow' }}
+          {{ currentArticle.author.username }}
+        </button>
+        &nbsp;&nbsp;
+        <button
+          class="btn btn-sm btn-outline-primary"
+          :class="{
+            active: currentArticle.favorited,
+          }"
+          @click="handlerFavorite(currentArticle.favorited)"
+        >
+          <i class="ion-heart"></i>
+          &nbsp; Favorite Post
+          <span class="counter">({{ currentArticle.favoritesCount }})</span>
+        </button>
+      </template>
     </template>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'ArticleMeta',
   props: {
@@ -68,6 +94,8 @@ export default {
     currentArticle() {
       return this.article
     },
+
+    ...mapState({ current: 'user' }),
   },
   methods: {
     async handlerFollow(isFollow) {

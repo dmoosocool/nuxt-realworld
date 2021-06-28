@@ -92,16 +92,26 @@
 <script>
 export default {
   name: 'NewPost',
+  async asyncData({ params, $axios }) {
+    const { slug } = params
+    let article = {
+      title: '',
+      description: '',
+      body: '',
+      tagList: [],
+    }
+
+    if (slug !== undefined) {
+      const data = await $axios.$get(`/api/articles/${slug}`)
+      article = data.article
+    }
+
+    return { article, slug }
+  },
   data() {
     return {
       addTag: '',
       errors: {},
-      article: {
-        title: '',
-        description: '',
-        body: '',
-        tagList: [],
-      },
     }
   },
 
@@ -118,8 +128,19 @@ export default {
     async onSubmit() {
       const { article } = this
       try {
-        await this.$axios.$post(`/api/articles`, { article })
-        this.$router.push({ name: 'Home' })
+        const action =
+          this.slug !== undefined
+            ? () => this.$axios.$put(`/api/articles/${this.slug}`, { article })
+            : () => this.$axios.$post(`/api/articles`, { article })
+
+        await action()
+
+        this.slug !== undefined
+          ? this.$router.push({
+              name: 'Article',
+              params: { slug: article.slug },
+            })
+          : this.$router.push({ name: 'Home' })
       } catch (e) {
         this.errors = e.response.data.errors
       }
