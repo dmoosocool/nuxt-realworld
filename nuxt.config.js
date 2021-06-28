@@ -19,7 +19,7 @@ export default {
     port: 3000,
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/request.js', '~/plugins/dayjs.js'],
+  plugins: ['~/plugins/request.js', '~/plugins/dayjs.js', '~/plugins/tag.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

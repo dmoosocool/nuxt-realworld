@@ -90,7 +90,7 @@
 
                 <ul class="tag-list">
                   <li
-                    v-for="aTag in filterEmptyTag(article.tagList)"
+                    v-for="aTag in $options.filters.emptytag(article.tagList)"
                     :key="aTag"
                     class="tag-default tag-pill tag-outline"
                   >
@@ -132,7 +132,7 @@
             <p>Popular Tags</p>
             <div v-if="tags.length > 0" class="tag-list">
               <nuxt-link
-                v-for="tag in filterEmptyTag(tags)"
+                v-for="tag in $options.filters.emptytag(tags)"
                 :key="tag"
                 :to="{
                   name: 'Home',
@@ -209,19 +209,6 @@ export default {
 
   // 监听当前页面属性发生变化
   watchQuery: ['page', 'tag', 'tab'],
-
-  methods: {
-    filterEmptyTag(tagList) {
-      tagList = [...new Set(tagList)]
-      return tagList.filter((tag) => {
-        if (tag.length === 0) return false
-        // 过滤掉无效字符, 因为asc码最大7424 超出的将会解析为空字符, 所以需要过滤掉这些无用的数据
-        // https://asecuritysite.com/coding/asc2
-        if (tag.charCodeAt() > 7424) return false
-        return true
-      })
-    },
-  },
 }
 </script>
 
