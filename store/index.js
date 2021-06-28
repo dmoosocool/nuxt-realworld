@@ -19,6 +19,7 @@ export const actions = {
   nuxtServerInit({ commit }, { req }) {
     let user = null
     // 如果请求头中带有cookie, 那么就解析cookie 并将cookie中的user解析出来存放在vuex中
+
     if (req.headers.cookie) {
       const parsed = cookieparser.parse(req.headers.cookie)
       try {

@@ -14,14 +14,14 @@
 
           <template v-if="user">
             <li class="nav-item">
-              <a class="nav-link" href="">
+              <nuxt-link class="nav-link" :to="{ name: 'Editor' }">
                 <i class="ion-compose"></i>&nbsp;New Post
-              </a>
+              </nuxt-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">
+              <nuxt-link class="nav-link" :to="{ name: 'Settings' }">
                 <i class="ion-gear-a"></i>&nbsp;Settings
-              </a>
+              </nuxt-link>
             </li>
             <li class="nav-item">
               <nuxt-link

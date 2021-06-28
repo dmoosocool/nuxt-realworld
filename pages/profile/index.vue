@@ -10,6 +10,7 @@
             <button
               v-if="current.username === profile.username"
               class="btn btn-sm btn-outline-secondary action-btn"
+              @click="$router.push({ name: 'Settings' })"
             >
               <i class="ion-gear-a"></i>
               &nbsp; Edit Profile Settings
