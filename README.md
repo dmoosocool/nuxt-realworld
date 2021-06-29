@@ -18,3 +18,5 @@ $ yarn generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+DEMO: [nuxt-realworld for lagou edu](http://42.240.136.102:3000/)
