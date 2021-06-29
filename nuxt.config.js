@@ -29,7 +29,7 @@ export default {
   //
   server: {
     host: '0.0.0.0',
-    port: 3001,
+    port: 3000,
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['~/plugins/request.js', '~/plugins/dayjs.js', '~/plugins/tag.js'],
