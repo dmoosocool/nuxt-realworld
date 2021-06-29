@@ -1,38 +1,38 @@
 name: ci
 
+# 触发构建的时机, 当有以v开头的tag被推送到远端git仓库时, 触发构建
 on:
   push:
-    branches:
-      - main
-      - master
-  pull_request:
-    branches:
-      - main
-      - master
+    tags:
+      - 'v*'
 
 jobs:
   ci:
+    # 运行的系统环境
     runs-on: ${{ matrix.os }}
-
     strategy:
       matrix:
         os: [ubuntu-latest]
         node: [14]
 
     steps:
+      # 下载源码
       - name: Checkout 🛎
         uses: actions/checkout@master
 
+      # 确保node的版本
       - name: Setup node env 🏗
         uses: actions/setup-node@v2.1.2
         with:
           node-version: ${{ matrix.node }}
           check-latest: true
 
+      # 获取yarn的缓存目录
       - name: Get yarn cache directory path 🛠
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
+      # 将node_modules缓存起来
       - name: Cache node_modules 📦
         uses: actions/cache@v2
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
@@ -42,11 +42,56 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      # 通过 yarn 进行安装依赖
       - name: Install dependencies 👨🏻‍💻
         run: yarn
 
+      # 执行 lint代码风格检查
       - name: Run linter 👀
         run: yarn lint
 
-      - name: Run tests 🧪
-        run: yarn test
+      # 执行构建
+      - name: Build 🛠️
+        uses: actions/setup-node@master
+      - run: yarn build
+      - run: tar -zcvf release.tgz .nuxt static app.js nuxt.config.js package.json yarn.lock ecosystem.config.js pm2.config.json
+
+      # 发布 Release
+      - name: Create Release 🚀
+        id: create_release
+        uses: actions/create-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelase: false
+
+      # 获取上传发布包
+      - name: Upload Release Asset 🍳
+        id: upload-release-asset
+        uses: actions/upload-release-asset@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future- steps
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release.tgz
+          asset_name: release.tgz
+          asset_content_type: application/x-tgz
+
+      # 部署至服务器
+      - name: Deploy 🌈🌈🌈🌈
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /root/realworld
+            wget https://github.com/dmoosocool/nuxt-realworld/releases/latest/download/release.tgz -O release.tgz
+            tar zxvf release.tgz
+            npm install --production
+            pm2 reload pm2.config.json
