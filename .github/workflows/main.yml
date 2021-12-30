@@ -22,7 +22,7 @@ jobs:
 
       # 确保node的版本
       - name: Setup node env 🏗
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v2.5.1
         with:
           node-version: ${{ matrix.node }}
           check-latest: true
@@ -52,7 +52,7 @@ jobs:
 
       # 执行构建
       - name: Build 🛠️
-        uses: actions/setup-node@v2.5.0
+        uses: actions/setup-node@v2.5.1
       - run: yarn build
       - run: tar -zcvf release.tgz .nuxt static nuxt.config.js package.json yarn.lock pm2.config.json
 
