@@ -57,7 +57,7 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.0",
     "prettier": "^2.3.2",
-    "stylelint": "^15.2.0",
+    "stylelint": "^14.16.1",
     "stylelint-config-prettier": "^9.0.2",
     "stylelint-config-standard": "^31.0.0",
     "webpack": "5.76.1"
